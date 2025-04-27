@@ -1,0 +1,8 @@
+[
+    { "name": "No Risk", "value": 48.72, "color": "#4ade80" },
+    { "name": "Mild", "value": 29.26, "color": "#bef264" },
+    { "name": "Moderate", "value": 10.8, "color": "#facc15" },
+    { "name": "Severe", "value": 8.81, "color": "#fb923c" },
+    { "name": "Critical", "value": 2.41, "color": "#f87171" }
+  ]
+  

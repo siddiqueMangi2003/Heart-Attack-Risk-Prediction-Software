@@ -1,0 +1,9 @@
+[
+    { "age": 30, "Healthy": 10, "Average": 30, "AtRisk": 50 },
+    { "age": 40, "Healthy": 20, "Average": 50, "AtRisk": 70 },
+    { "age": 50, "Healthy": 30, "Average": 60, "AtRisk": 80 },
+    { "age": 60, "Healthy": 40, "Average": 70, "AtRisk": 90 },
+    { "age": 70, "Healthy": 45, "Average": 75, "AtRisk": 95 },
+    { "age": 80, "Healthy": 50, "Average": 78, "AtRisk": 98 }
+  ]
+  
