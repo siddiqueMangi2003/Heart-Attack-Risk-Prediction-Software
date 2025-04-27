@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import FeatureImportanceChart from "@/components/FeatureImportanceChart"
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface RiskCategory {
   name: string
@@ -36,13 +37,13 @@ export function AnalysisCharts() {
   const [ageData, setAgeData] = useState<AgeScenario[]>([])
   const [riskData, setRiskData] = useState<RiskCategory[]>([])
 
+
   useEffect(() => {
-   // fetch("http://localhost:8000/age-risk")
-    fetch("http://13.53.182.176:8000/age-risk")
+    fetch(`${BASE_URL}/age-risk`)
       .then((res) => res.json())
       .then((data) => setAgeData(data))
-
-    fetch("http://13.53.182.176:8000/risk-distribution")
+  
+    fetch(`${BASE_URL}/risk-distribution`)
       .then((res) => res.json())
       .then((data) => setRiskData(data))
   }, [])

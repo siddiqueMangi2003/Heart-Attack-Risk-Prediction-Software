@@ -8,6 +8,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 /* ---------- 1. Zod schema (14 features) ---------- */
 const formSchema = z.object({
   age: z.coerce.number().min(18).max(120),
@@ -122,15 +124,15 @@ export function HealthParameterForm() {
       console.log(`Sending data to backend for ${predictionMode} prediction:`, dataToSend);
 
       const endpoint = predictionMode === "binary" 
-        ? "http://13.53.182.176:8000/predict-binary" 
-        : "http://13.53.182.176:8000/predict-multiclass";
+  ? `${BASE_URL}/predict-binary` 
+  : `${BASE_URL}/predict-multiclass`;
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dataToSend),
-      });
-      
+const res = await fetch(endpoint, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(dataToSend),
+});
+
       if (!res.ok) {
         const errorData = await res.json();
         console.error("API Error:", errorData);

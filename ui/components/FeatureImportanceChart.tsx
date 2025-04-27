@@ -12,36 +12,37 @@ import {
 } from "chart.js"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend)
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function FeatureImportanceChart() {
   const [data, setData] = useState<{ feature: string; importance: number }[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    setLoading(true)
-   // fetch("http://localhost:8000/feature-importance")
-    fetch("http://13.53.182.176:8000/feature-importance")
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.importances && Array.isArray(res.importances)) {
-          const sorted = [...res.importances].sort((a: any, b: any) => b.importance - a.importance)
-          setData(sorted)
-        } else if (res.error) {
-          setError(`Error from API: ${res.error}`)
-        } else {
-          setError("Invalid response format: 'importances' array not found")
-          console.error("API response format error:", res)
-        }
-      })
-      .catch((err) => {
-        setError(`Failed to fetch data: ${err.message}`)
-        console.error("API fetch error:", err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+
+useEffect(() => {
+  setLoading(true)
+  fetch(`${BASE_URL}/feature-importance`)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.importances && Array.isArray(res.importances)) {
+        const sorted = [...res.importances].sort((a: any, b: any) => b.importance - a.importance)
+        setData(sorted)
+      } else if (res.error) {
+        setError(`Error from API: ${res.error}`)
+      } else {
+        setError("Invalid response format: 'importances' array not found")
+        console.error("API response format error:", res)
+      }
+    })
+    .catch((err) => {
+      setError(`Failed to fetch data: ${err.message}`)
+      console.error("API fetch error:", err)
+    })
+    .finally(() => {
+      setLoading(false)
+    })
+}, [])
 
   const chartData = {
     labels: data.map((d) => d.feature),
