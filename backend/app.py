@@ -12,7 +12,7 @@ import smtplib
 
 app = FastAPI()
 
-# ✅ Enable CORS for frontend connection
+#  Enable CORS for frontend connection
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Change this to your frontend domain in production
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Load models and encoders
+#  Load models and encoders
 binary_model = joblib.load("model/xgboost_model.pkl")
 binary_scaler = joblib.load("model/scaler.pkl")
 
@@ -56,7 +56,6 @@ class Patient(BaseModel):
     chest_pain_type: Literal[
         "typical angina", "atypical angina", "non-anginal", "asymptomatic"
     ]
-    country: Literal["Cleveland", "Hungary", "Switzerland", "VA Long Beach"]
     resting_blood_pressure: float
     cholesterol: float
     fasting_blood_sugar: bool
@@ -82,7 +81,7 @@ def predict_heart_risk_binary(data: Patient):
         "age": payload["age"],
         "sex": sex_map[payload["sex"]],
         "chest_pain_type": cp_map[payload["chest_pain_type"]],
-        "country": dataset_map[payload["country"]],
+        "country": dataset_map["Hungary"],  # Always use Hungary
         "resting_blood_pressure": payload["resting_blood_pressure"],
         "cholesterol": payload["cholesterol"],
         "fasting_blood_sugar": bool_map[payload["fasting_blood_sugar"]],
@@ -119,10 +118,10 @@ def predict_heart_risk_multiclass(data: Patient):
     
     # ------- encode with the mapping dicts -------
     encoded = {
-        "id": patient_id,  # Use generated ID that won't affect prediction
+        "id": patient_id,  
         "age": payload["age"],
         "sex": sex_map[payload["sex"]],
-        "dataset": dataset_map[payload["country"]],
+        "dataset": dataset_map["Hungary"],  # Always use Hungary
         "cp": cp_map[payload["chest_pain_type"]],
         "trestbps": payload["resting_blood_pressure"],
         "chol": payload["cholesterol"],
@@ -161,19 +160,12 @@ def predict_heart_risk_multiclass(data: Patient):
         "probabilities": probabilities
     }
 
-
-
-
-
-
-
-
-# ✅ Load binary feature names
+#  Load binary feature names
 with open("model/binary_feature_names.json", "r") as f:
     binary_feature_names = json.load(f)
 
 
-# ✅ /binary-feature-importance: Get bar chart data for binary model
+#  /binary-feature-importance: Get bar chart data for binary model
 @app.get("/feature-importance")
 def get_binary_feature_importance():
     try:
@@ -193,7 +185,7 @@ def get_binary_feature_importance():
         return {"error": str(e)}
 
 
-# ✅ /risk-distribution: Get pie chart data
+#  /risk-distribution: Get pie chart data
 @app.get("/risk-distribution")
 def get_risk_distribution():
     try:
@@ -202,7 +194,7 @@ def get_risk_distribution():
     except Exception as e:
         return {"error": str(e)}
 
-# ✅ /age-risk: Get line chart data
+#  /age-risk: Get line chart data
 @app.get("/age-risk")
 def get_age_risk():
     try:
@@ -210,7 +202,6 @@ def get_age_risk():
             return json.load(f)
     except Exception as e:
         return {"error": str(e)}
-
 
 
 class Message(BaseModel):
@@ -234,63 +225,3 @@ def send_email(name: str, email: str, message: str):
 async def send_message(data: Message, background_tasks: BackgroundTasks):
     background_tasks.add_task(send_email, data.name, data.email, data.message)
     return {"message": "Your message has been sent!"}
-
-
-
-
-
-# ✅ Input schema
-# class Patient(BaseModel):
-#     age: float
-#     sex: str
-#     dataset: str
-#     cp: str
-#     trestbps: float
-#     chol: float
-#     fbs: bool
-#     restecg: str
-#     thalch: float
-#     exang: bool
-#     oldpeak: float
-#     slope: str
-#     ca: str
-
-# ✅ /predict: Make prediction from user input
-# @app.post("/predict")
-# def predict_heart_risk(data: Patient):
-#     print("\n📥 Received input:", data.model_dump())
-
-#     input_df = pd.DataFrame([data.model_dump()])
-
-#     for col in input_df.columns:
-#         if col in label_encoders:
-#             input_df[col] = label_encoders[col].transform(input_df[col])
-
-#     prediction = model.predict(input_df)
-#     return {"predicted_risk_class": int(prediction[0])}
-
-
-
-
-
-
-
-
-
-# ✅ Load feature names
-# with open("model/feature_names.json", "r") as f:
-#     feature_names = json.load(f)
-
-
-# # ✅ /feature-importance: Get bar chart data
-# @app.get("/feature-importance")
-# def get_feature_importance():
-#     try:
-#         importances = model.feature_importances_
-#         response = [
-#             {"feature": feature, "importance": float(importance)}
-#             for feature, importance in zip(feature_names, importances)
-#         ]
-#         return {"importances": response}
-#     except Exception as e:
-#         return {"error": str(e)}

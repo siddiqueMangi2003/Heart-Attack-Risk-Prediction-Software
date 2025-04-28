@@ -8,9 +8,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-/* ---------- 1. Zod schema (14 features) ---------- */
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+/* ---------- 1. Zod schema (13 features - removed country) ---------- */
 const formSchema = z.object({
   age: z.coerce.number().min(18).max(120),
   sex: z.enum(["Male", "Female"]),
@@ -20,7 +20,6 @@ const formSchema = z.object({
     "non-anginal",
     "asymptomatic",
   ]),
-  country: z.enum(["Cleveland", "Hungary", "Switzerland", "VA Long Beach"]),
   resting_blood_pressure: z.coerce.number().min(70).max(250),
   cholesterol: z.coerce.number().min(100).max(700),
   fasting_blood_sugar: z.boolean(),
@@ -71,7 +70,6 @@ export function HealthParameterForm() {
       age: 50,
       sex: "Male",
       chest_pain_type: "non-anginal",
-      country: "Cleveland",
       resting_blood_pressure: 120,
       cholesterol: 200,
       fasting_blood_sugar: false,
@@ -114,25 +112,22 @@ export function HealthParameterForm() {
     setErrorMsg(null);
 
     try {
-      // Create a new object with modified fields for backend compatibility
       const dataToSend = {
         ...data,
-        // Convert string to number for num_major_vessels
         num_major_vessels: parseInt(data.num_major_vessels, 10)
       };
       
       console.log(`Sending data to backend for ${predictionMode} prediction:`, dataToSend);
 
       const endpoint = predictionMode === "binary" 
-  ? `${BASE_URL}/predict-binary` 
-  : `${BASE_URL}/predict-multiclass`;
-
-const res = await fetch(endpoint, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dataToSend),
-});
-
+      ? `${BASE_URL}/predict-binary` 
+      : `${BASE_URL}/predict-multiclass`;
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
+      });
+      
       if (!res.ok) {
         const errorData = await res.json();
         console.error("API Error:", errorData);
@@ -280,22 +275,6 @@ const res = await fetch(endpoint, {
                 <option value="atypical angina">Atypical angina</option>
                 <option value="non-anginal">Non-anginal</option>
                 <option value="asymptomatic">Asymptomatic</option>
-              </select>
-            </div>
-
-            {/* dataset */}
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Dataset / Country
-              </label>
-              <select
-                className="w-full p-2 border rounded-md"
-                {...register("country")}
-              >
-                <option value="Cleveland">Cleveland</option>
-                <option value="Hungary">Hungary</option>
-                <option value="Switzerland">Switzerland</option>
-                <option value="VA Long Beach">VA Long Beach</option>
               </select>
             </div>
 
