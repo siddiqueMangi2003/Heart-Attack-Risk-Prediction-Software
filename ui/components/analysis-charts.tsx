@@ -19,17 +19,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import FeatureImportanceChart from "@/components/FeatureImportanceChart"
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+interface AgeScenario {
+  age: number
+  Healthy: number
+  Average: number
+  AtRisk: number
+}
+
 interface RiskCategory {
   name: string
   value: number
   color: string
-}
-
-interface AgeScenario {
-  age: number
-  lowRisk: number
-  moderateRisk: number
-  highRisk: number
 }
 
 export function AnalysisCharts() {
@@ -39,13 +39,57 @@ export function AnalysisCharts() {
 
 
   useEffect(() => {
+    // Default data in case API fails
+    const defaultAgeData = [
+      { age: 30, Healthy: 5, Average: 10, AtRisk: 20 },
+      { age: 40, Healthy: 10, Average: 20, AtRisk: 35 },
+      { age: 50, Healthy: 15, Average: 30, AtRisk: 50 },
+      { age: 60, Healthy: 20, Average: 40, AtRisk: 65 },
+      { age: 70, Healthy: 25, Average: 50, AtRisk: 80 }
+    ];
+    
+    const defaultRiskData = [
+      { name: "No Risk", value: 49, color: "#4ade80" },
+      { name: "Mild", value: 29, color: "#bef264" },
+      { name: "Moderate", value: 11, color: "#fcd34d" },
+      { name: "Severe", value: 9, color: "#fb923c" },
+      { name: "Critical", value: 2, color: "#f87171" }
+    ];
+    
+    // Set default data first
+    setAgeData(defaultAgeData);
+    setRiskData(defaultRiskData);
+    
+    // Then try to fetch from API
     fetch(`${BASE_URL}/age-risk`)
-      .then((res) => res.json())
-      .then((data) => setAgeData(data))
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch age data');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAgeData(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching age data:", error);
+        // Default data already set
+      });
   
     fetch(`${BASE_URL}/risk-distribution`)
-      .then((res) => res.json())
-      .then((data) => setRiskData(data))
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch risk distribution data');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setRiskData(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching risk distribution data:", error);
+        // Default data already set
+      });
   }, [])
 
   return (
@@ -88,14 +132,22 @@ export function AnalysisCharts() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[400px]">
+              <div className="h-[400px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={ageData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <LineChart data={ageData} margin={{ top: 20, right: 5, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="age" label={{ value: "Age (years)", position: "insideBottom", offset: -10 }} />
-                    <YAxis label={{ value: "Risk Probability (%)", angle: -90, position: "insideLeft" }} />
+                    <XAxis 
+                      dataKey="age" 
+                      label={{ value: "Age (years)", position: "insideBottom", offset: -10 }}
+                      tick={{ fontSize: 12 }}
+                    />
+                    <YAxis 
+                      label={{ value: "Risk Probability (%)", angle: -90, position: "insideLeft", dy: 40 }} 
+                      tick={{ fontSize: 12 }}
+                      width={40}
+                    />
                     <Tooltip />
-                    <Legend />
+                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
                     <Line type="monotone" dataKey="Healthy" name="Healthy Profile" stroke="#4ade80" strokeWidth={2} />
                     <Line type="monotone" dataKey="Average" name="Average Profile" stroke="#facc15" strokeWidth={2} />
                     <Line type="monotone" dataKey="AtRisk" name="At-Risk Profile" stroke="#f87171" strokeWidth={2} />
@@ -127,22 +179,47 @@ export function AnalysisCharts() {
             <CardContent>
               <div className="h-[400px] flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
+                  <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                     <Pie
                       data={riskData}
                       cx="50%"
                       cy="50%"
-                      outerRadius={150}
+                      outerRadius={120}
+                      innerRadius={0}
                       fill="#8884d8"
                       dataKey="value"
-                      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                      nameKey="name"
+                      label={(props) => {
+                        const { cx, cy, midAngle, innerRadius, outerRadius, name, percent, fill } = props;
+                        // Increase the radius to position labels further from the pie
+                        const radius = outerRadius * 1.2;
+                        const RADIAN = Math.PI / 180;
+                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                        
+                        // Show all labels regardless of size - critical to ensure small segments get labeled
+                        return (
+                          <text 
+                            x={x} 
+                            y={y} 
+                            fill={fill}
+                            textAnchor={x > cx ? 'start' : 'end'} 
+                            dominantBaseline="central"
+                            fontSize="12"
+                            fontWeight="bold"
+                          >
+                            {`${name}: ${(percent * 100).toFixed(0)}%`}
+                          </text>
+                        );
+                      }}
+                      labelLine={true}
                     >
-                      {riskData.map((entry, index) => (
+                      {Array.isArray(riskData) && riskData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
                     <Tooltip formatter={(value) => [`${value}%`, "Percentage"]} />
-                    <Legend />
+                    <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>

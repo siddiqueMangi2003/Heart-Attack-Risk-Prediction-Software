@@ -311,12 +311,7 @@ export default function HeartHealthGuidePage() {
                 >
                   Check Your Risk
                 </Link>
-                <Link
-                  href="/contact"
-                  className="px-6 py-3 bg-blue-500 bg-opacity-20 text-white font-medium rounded-lg shadow-md hover:bg-opacity-30 transition-all duration-300 text-center"
-                >
-                  Speak with a Specialist
-                </Link>
+               
               </div>
             </section>
 

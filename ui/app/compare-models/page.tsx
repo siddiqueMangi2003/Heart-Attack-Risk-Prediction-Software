@@ -202,6 +202,7 @@ const binaryModelData: ModelData[] = [
     classCount: 2,
   },
 ];
+
 // Format for radar chart - multiclass
 const formatRadarData = (modelData: ModelData[]): RadarChartData[] => {
   return modelData.map((model) => ({
@@ -460,10 +461,7 @@ export default function CompareModelsPage() {
                       </select>
                     </div>
 
-                    <button className="flex items-center space-x-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg p-2 text-sm transition-colors">
-                      <DownloadIcon className="h-4 w-4" />
-                      <span>Export Data</span>
-                    </button>
+                  
                   </div>
                 </div>
 
@@ -502,34 +500,54 @@ export default function CompareModelsPage() {
                         <PolarGrid />
                         <PolarAngleAxis dataKey="model" />
                         <PolarRadiusAxis angle={90} domain={[0, 100]} />
-                        <Radar
-                          name="Accuracy"
-                          dataKey="accuracy"
-                          stroke={metricColors.accuracy}
-                          fill={metricColors.accuracy}
-                          fillOpacity={0.2}
-                        />
-                        <Radar
-                          name="Precision"
-                          dataKey="precision"
-                          stroke={metricColors.precision}
-                          fill={metricColors.precision}
-                          fillOpacity={0.2}
-                        />
-                        <Radar
-                          name="Recall"
-                          dataKey="recall"
-                          stroke={metricColors.recall}
-                          fill={metricColors.recall}
-                          fillOpacity={0.2}
-                        />
-                        <Radar
-                          name="F1-Score"
-                          dataKey="f1Score"
-                          stroke={metricColors.f1Score}
-                          fill={metricColors.f1Score}
-                          fillOpacity={0.2}
-                        />
+                        {selectedMetric === "accuracy" && (
+                          <Radar
+                            name="Accuracy"
+                            dataKey="accuracy"
+                            stroke={metricColors.accuracy}
+                            fill={metricColors.accuracy}
+                            fillOpacity={0.2}
+                            isAnimationActive={true}
+                            animationBegin={0}
+                            animationDuration={500}
+                          />
+                        )}
+                        {selectedMetric === "precision" && (
+                          <Radar
+                            name="Precision"
+                            dataKey="precision"
+                            stroke={metricColors.precision}
+                            fill={metricColors.precision}
+                            fillOpacity={0.2}
+                            isAnimationActive={true}
+                            animationBegin={0}
+                            animationDuration={500}
+                          />
+                        )}
+                        {selectedMetric === "recall" && (
+                          <Radar
+                            name="Recall"
+                            dataKey="recall"
+                            stroke={metricColors.recall}
+                            fill={metricColors.recall}
+                            fillOpacity={0.2}
+                            isAnimationActive={true}
+                            animationBegin={0}
+                            animationDuration={500}
+                          />
+                        )}
+                        {selectedMetric === "f1Score" && (
+                          <Radar
+                            name="F1-Score"
+                            dataKey="f1Score"
+                            stroke={metricColors.f1Score}
+                            fill={metricColors.f1Score}
+                            fillOpacity={0.2}
+                            isAnimationActive={true}
+                            animationBegin={0}
+                            animationDuration={500}
+                          />
+                        )}
                         <Legend />
                         <Tooltip formatter={(value) => [`${Number(value).toFixed(1)}%`]} />
                       </RadarChart>
@@ -795,45 +813,7 @@ export default function CompareModelsPage() {
             </Tabs>
           </motion.div>
 
-          {/* Technical Notes Section */}
-          <motion.div
-            className={`bg-gradient-to-r ${
-              comparisonMode === "multiclass" ? "from-blue-50 to-purple-50" : "from-purple-50 to-blue-50"
-            } rounded-xl p-6`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <div className="flex items-start space-x-4">
-              <div className="bg-white p-2 rounded-full">
-                <InfoIcon
-                  className={`h-6 w-6 ${comparisonMode === "multiclass" ? "text-blue-600" : "text-purple-600"}`}
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Technical Notes: {comparisonMode === "multiclass" ? "Multiclass" : "Binary"} Models
-                </h3>
-                <p className="text-muted-foreground mb-4">
-                  {comparisonMode === "multiclass"
-                    ? "The multiclass models shown are trained to predict heart disease severity on a 5-point scale (0-4). These models were evaluated using stratified 5-fold cross-validation on a dataset of 10,000 patient records with balanced class distribution."
-                    : "The binary models shown are trained to predict the presence or absence of heart disease. These models were evaluated using 5-fold cross-validation on a dataset of 15,000 patient records with a 70/30 split between negative and positive cases."}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <button
-                    className={`text-sm bg-white ${comparisonMode === "multiclass" ? "text-blue-600 hover:bg-blue-50" : "text-purple-600 hover:bg-purple-50"} px-4 py-2 rounded-lg transition-colors`}
-                  >
-                    Download Technical Report
-                  </button>
-                  <button
-                    className={`text-sm bg-white ${comparisonMode === "multiclass" ? "text-purple-600 hover:bg-purple-50" : "text-blue-600 hover:bg-blue-50"} px-4 py-2 rounded-lg transition-colors`}
-                  >
-                    View Methodology
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+         
         </div>
       </div>
     </main>
