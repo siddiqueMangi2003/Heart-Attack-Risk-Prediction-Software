@@ -75,7 +75,6 @@ export function HealthParameterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    // @ts-ignore
     resolver: zodResolver(formSchema),
     defaultValues: {
       age: 50,
@@ -94,7 +93,6 @@ export function HealthParameterForm() {
     },
   });
 
-  /* ------------ helpers ------------- */
   const getBinaryBadge = (category: string): string =>
     category === "No Disease"
       ? "bg-green-100 text-green-800"
@@ -115,7 +113,6 @@ export function HealthParameterForm() {
     }
   };
 
-  /* ------------- onSubmit ------------ */
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setBinaryResult(null);

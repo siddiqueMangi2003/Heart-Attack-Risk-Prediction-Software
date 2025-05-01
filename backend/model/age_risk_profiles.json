@@ -1,9 +1,32 @@
 [
-    { "age": 30, "Healthy": 10, "Average": 30, "AtRisk": 50 },
-    { "age": 40, "Healthy": 20, "Average": 50, "AtRisk": 70 },
-    { "age": 50, "Healthy": 30, "Average": 60, "AtRisk": 80 },
-    { "age": 60, "Healthy": 40, "Average": 70, "AtRisk": 90 },
-    { "age": 70, "Healthy": 45, "Average": 75, "AtRisk": 95 },
-    { "age": 80, "Healthy": 50, "Average": 78, "AtRisk": 98 }
-  ]
-  
+  {
+    "age": 30,
+    "Healthy": 66,
+    "Average": 28,
+    "AtRisk": 7
+  },
+  {
+    "age": 40,
+    "Healthy": 60,
+    "Average": 29,
+    "AtRisk": 11
+  },
+  {
+    "age": 50,
+    "Healthy": 43,
+    "Average": 31,
+    "AtRisk": 25
+  },
+  {
+    "age": 60,
+    "Healthy": 27,
+    "Average": 26,
+    "AtRisk": 47
+  },
+  {
+    "age": 70,
+    "Healthy": 30,
+    "Average": 26,
+    "AtRisk": 44
+  }
+]

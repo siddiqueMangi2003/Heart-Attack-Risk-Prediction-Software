@@ -12,7 +12,6 @@ import smtplib
 
 app = FastAPI()
 
-#  Enable CORS for frontend connection
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
@@ -21,15 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#  Load models and encoders
 binary_model = joblib.load("model/xgboost_model.pkl")
 binary_scaler = joblib.load("model/scaler.pkl")
 
-# Load multiclass model
 multiclass_model = joblib.load("model/best_model.pkl")
 multiclass_scaler = joblib.load("model/multiclass_scaler.pkl")
 
-# Mapping Dictionary:
 sex_map       = {"Female": 0, "Male": 1}
 cp_map        = {"asymptomatic": 0, "atypical angina": 1, 
                 "non-anginal": 2, "typical angina": 3}
@@ -41,7 +37,6 @@ slope_map     = {"downsloping": 0, "flat": 1, "upsloping": 2}
 thal_map      = {"fixed-defect": 0, "normal": 1, "reversable-defect": 2}
 trestbps_bins_map = {'Normal': 0, 'high': 1, 'low': 2, 'very_high': 3}
 
-# Multiclass result mapping
 class_mapping = {
     0: "No Heart Disease",
     1: "Mild Heart Disease",

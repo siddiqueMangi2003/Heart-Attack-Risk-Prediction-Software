@@ -9,7 +9,6 @@ import { useInView } from "react-intersection-observer"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Activity, Heart, Shield, Zap, Award, Users, BarChart3, Clock } from "lucide-react"
 
-// Client-only component wrapper
 function ClientOnly({ children, fallback = null }: { children: React.ReactNode; fallback?: React.ReactNode }) {
   const [isClient, setIsClient] = useState(false)
 
@@ -20,7 +19,6 @@ function ClientOnly({ children, fallback = null }: { children: React.ReactNode; 
   return isClient ? <>{children}</> : <>{fallback}</>
 }
 
-// Animated counter component
 function AnimatedCounter({ value, duration = 2000 }: { value: string | number; duration?: number }) {
   const [count, setCount] = useState(0)
   const countRef = useRef(null)
@@ -55,16 +53,12 @@ function AnimatedCounter({ value, duration = 2000 }: { value: string | number; d
   )
 }
 
-// Animated background component
 function AnimatedBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-75 md:opacity-100">
-      {/* Gradient background - static, safe for SSR */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 opacity-80"></div>
 
-      {/* Client-only animated elements */}
       <ClientOnly>
-        {/* Animated shapes */}
         {Array.from({ length: 15 }).map((_, i) => {
           const size = Math.random() * 100 + 50
           const xPos = Math.random() * 100
@@ -103,7 +97,6 @@ function AnimatedBackground() {
           )
         })}
 
-        {/* Particles */}
         <div className="absolute inset-0" style={{ mixBlendMode: "overlay" }}>
           {Array.from({ length: 50 }).map((_, i) => {
             const size = Math.random() * 4 + 1
