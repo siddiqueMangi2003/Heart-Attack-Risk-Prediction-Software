@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 
-const BASE_URL = "https://cardioguard.xyz" ;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 /* ---------- 1. Zod schema (13 features - removed country) ---------- */
 const formSchema = z.object({
   age: z.coerce.number()
