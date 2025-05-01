@@ -48,7 +48,7 @@ function AnimatedCounter({ value, duration = 2000 }: { value: string | number; d
 
   return (
     <div ref={ref}>
-      <span ref={countRef} className="text-4xl font-bold text-blue-600">
+      <span ref={countRef} className="text-4xl font-bold text-white">
         {count.toLocaleString()}
       </span>
     </div>
@@ -535,7 +535,7 @@ export default function Home() {
               >
                 <div className="flex justify-center mb-4">{stat.icon}</div>
                 <AnimatedCounter value={stat.value} />
-                <p className="text-lg mt-2 opacity-80">{stat.label}</p>
+                <p className="text-lg mt-2 text-white">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -564,21 +564,21 @@ export default function Home() {
                   "CardioGuard has transformed how I discuss heart health with my patients. It's an invaluable tool for risk awareness.",
                 author: "Dr. Sarah Johnson",
                 title: "Cardiologist",
-                image: "/placeholder.svg?height=80&width=80",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               },
               {
                 quote:
                   "After using CardioGuard, I made lifestyle changes that significantly improved my heart health metrics. It was the wake-up call I needed.",
                 author: "Michael Chen",
                 title: "User",
-                image: "/placeholder.svg?height=80&width=80",
+                image: "https://plus.unsplash.com/premium_photo-1661578535048-7a30e3a71d25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               },
               {
                 quote:
                   "The detailed analysis provided by CardioGuard helps us create more targeted prevention programs for at-risk communities.",
                 author: "Lisa Rodriguez",
                 title: "Public Health Specialist",
-                image: "/placeholder.svg?height=80&width=80",
+                image: "https://images.unsplash.com/photo-1659353888906-adb3e0041693?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               },
             ].map((testimonial, index) => (
               <motion.div

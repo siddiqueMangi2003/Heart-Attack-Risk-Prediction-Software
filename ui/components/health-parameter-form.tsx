@@ -9,10 +9,12 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = "https://cardioguard.xyz" ;
 /* ---------- 1. Zod schema (13 features - removed country) ---------- */
 const formSchema = z.object({
-  age: z.coerce.number().min(18).max(120),
+  age: z.coerce.number()
+    .min(18, "Age must be at least 18")
+    .max(120, "Age must be at most 120"),
   sex: z.enum(["Male", "Female"]),
   chest_pain_type: z.enum([
     "typical angina",
@@ -20,13 +22,22 @@ const formSchema = z.object({
     "non-anginal",
     "asymptomatic",
   ]),
-  resting_blood_pressure: z.coerce.number().min(70).max(250),
-  cholesterol: z.coerce.number().min(100).max(700),
+  resting_blood_pressure: z.coerce.number()
+    .min(70, "Blood pressure must be at least 70 mmHg")
+    .max(250, "Blood pressure must be at most 250 mmHg"),
+  cholesterol: z.coerce.number()
+    .min(100, "Cholesterol must be at least 100 mg/dL")
+    .max(700, "Cholesterol must be at most 700 mg/dL"),
   fasting_blood_sugar: z.boolean(),
   Restecg: z.enum(["normal", "lv-hypertrophy", "st-t-abnormality"]),
-  max_heart_rate_achieved: z.coerce.number().min(60).max(250),
+  max_heart_rate_achieved: z.coerce.number()
+    .min(60, "Max heart rate must be at least 60 bpm") 
+    .max(250, "Max heart rate must be at most 250 bpm"),
   exercise_induced_angina: z.boolean(),
-  st_depression: z.coerce.number().min(0).max(6).multipleOf(0.1),
+  st_depression: z.coerce.number()
+    .min(0, "ST depression must be at least 0")
+    .max(6, "ST depression must be at most 6") 
+    .multipleOf(0.1, "ST depression must be in increments of 0.1"),
   st_slope_type: z.enum(["upsloping", "flat", "downsloping"]),
   num_major_vessels: z.enum(["0", "1", "2", "3"]),
   thalassemia_type: z.enum([
@@ -233,11 +244,11 @@ export function HealthParameterForm() {
               <input
                 id="age"
                 type="number"
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.age ? "border-red-500" : ""}`}
                 {...register("age")}
               />
               {errors.age && (
-                <p className="text-sm text-red-500">{errors.age.message}</p>
+                <p className="text-sm text-red-500 mt-1">{errors.age.message as string}</p>
               )}
             </div>
 
@@ -245,14 +256,14 @@ export function HealthParameterForm() {
             <div>
               <label className="block text-sm font-medium mb-1">Sex</label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.sex ? "border-red-500" : ""}`}
                 {...register("sex")}
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
               {errors.sex && (
-                <p className="text-sm text-red-500">{errors.sex.message}</p>
+                <p className="text-sm text-red-500 mt-1">{errors.sex.message as string}</p>
               )}
             </div>
           </div>
@@ -268,7 +279,7 @@ export function HealthParameterForm() {
                 Chest-pain type
               </label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.chest_pain_type ? "border-red-500" : ""}`}
                 {...register("chest_pain_type")}
               >
                 <option value="typical angina">Typical angina</option>
@@ -276,6 +287,9 @@ export function HealthParameterForm() {
                 <option value="non-anginal">Non-anginal</option>
                 <option value="asymptomatic">Asymptomatic</option>
               </select>
+              {errors.chest_pain_type && (
+                <p className="text-sm text-red-500 mt-1">{errors.chest_pain_type.message as string}</p>
+              )}
             </div>
 
             {/* blood pressure */}
@@ -285,9 +299,12 @@ export function HealthParameterForm() {
               </label>
               <input
                 type="number"
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.resting_blood_pressure ? "border-red-500" : ""}`}
                 {...register("resting_blood_pressure")}
               />
+              {errors.resting_blood_pressure && (
+                <p className="text-sm text-red-500 mt-1">{errors.resting_blood_pressure.message as string}</p>
+              )}
             </div>
 
             {/* cholesterol */}
@@ -297,9 +314,12 @@ export function HealthParameterForm() {
               </label>
               <input
                 type="number"
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.cholesterol ? "border-red-500" : ""}`}
                 {...register("cholesterol")}
               />
+              {errors.cholesterol && (
+                <p className="text-sm text-red-500 mt-1">{errors.cholesterol.message as string}</p>
+              )}
             </div>
 
             {/* fasting blood sugar */}
@@ -319,13 +339,16 @@ export function HealthParameterForm() {
             <div>
               <label className="block text-sm font-medium mb-1">Rest ECG</label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.Restecg ? "border-red-500" : ""}`}
                 {...register("Restecg")}
               >
                 <option value="normal">Normal</option>
                 <option value="lv-hypertrophy">LV Hypertrophy</option>
                 <option value="st-t-abnormality">ST-T abnormality</option>
               </select>
+              {errors.Restecg && (
+                <p className="text-sm text-red-500 mt-1">{errors.Restecg.message as string}</p>
+              )}
             </div>
 
             {/* max HR */}
@@ -335,9 +358,12 @@ export function HealthParameterForm() {
               </label>
               <input
                 type="number"
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.max_heart_rate_achieved ? "border-red-500" : ""}`}
                 {...register("max_heart_rate_achieved")}
               />
+              {errors.max_heart_rate_achieved && (
+                <p className="text-sm text-red-500 mt-1">{errors.max_heart_rate_achieved.message as string}</p>
+              )}
             </div>
 
             {/* exercise angina */}
@@ -361,9 +387,12 @@ export function HealthParameterForm() {
               <input
                 type="number"
                 step="0.1"
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.st_depression ? "border-red-500" : ""}`}
                 {...register("st_depression")}
               />
+              {errors.st_depression && (
+                <p className="text-sm text-red-500 mt-1">{errors.st_depression.message as string}</p>
+              )}
             </div>
 
             {/* ST slope */}
@@ -372,13 +401,16 @@ export function HealthParameterForm() {
                 ST slope type
               </label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.st_slope_type ? "border-red-500" : ""}`}
                 {...register("st_slope_type")}
               >
                 <option value="upsloping">Upsloping</option>
                 <option value="flat">Flat</option>
                 <option value="downsloping">Downsloping</option>
               </select>
+              {errors.st_slope_type && (
+                <p className="text-sm text-red-500 mt-1">{errors.st_slope_type.message as string}</p>
+              )}
             </div>
 
             {/* vessels */}
@@ -387,7 +419,7 @@ export function HealthParameterForm() {
                 Number of major vessels (0-3)
               </label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.num_major_vessels ? "border-red-500" : ""}`}
                 {...register("num_major_vessels")}
               >
                 <option value="0">0</option>
@@ -395,6 +427,9 @@ export function HealthParameterForm() {
                 <option value="2">2</option>
                 <option value="3">3</option>
               </select>
+              {errors.num_major_vessels && (
+                <p className="text-sm text-red-500 mt-1">{errors.num_major_vessels.message as string}</p>
+              )}
             </div>
 
             {/* thal */}
@@ -403,13 +438,16 @@ export function HealthParameterForm() {
                 Thalassemia type
               </label>
               <select
-                className="w-full p-2 border rounded-md"
+                className={`w-full p-2 border rounded-md ${errors.thalassemia_type ? "border-red-500" : ""}`}
                 {...register("thalassemia_type")}
               >
                 <option value="normal">Normal</option>
                 <option value="fixed-defect">Fixed defect</option>
                 <option value="reversable-defect">Reversible defect</option>
               </select>
+              {errors.thalassemia_type && (
+                <p className="text-sm text-red-500 mt-1">{errors.thalassemia_type.message as string}</p>
+              )}
             </div>
           </div>
         </div>

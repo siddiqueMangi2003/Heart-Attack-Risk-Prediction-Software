@@ -124,10 +124,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">
-                  About Us
+                <Link href="/compare-models" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">
+                  Compare Models
                 </Link>
               </li>
+             
               <li>
                 <Link href="#" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">
                   Blog
@@ -149,12 +150,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/research-papers"
-                  className="text-sm text-muted-foreground hover:text-blue-600 transition-colors"
-                >
-                  Research Papers
-                </Link>
+              
               </li>
               <li>
                 <Link href="/faq" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">

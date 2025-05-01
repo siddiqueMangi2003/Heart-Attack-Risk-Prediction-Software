@@ -15,7 +15,7 @@ app = FastAPI()
 #  Enable CORS for frontend connection
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to your frontend domain in production
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,7 +35,7 @@ cp_map        = {"asymptomatic": 0, "atypical angina": 1,
                 "non-anginal": 2, "typical angina": 3}
 dataset_map   = {"Cleveland": 0, "Hungary": 1, 
                 "Switzerland": 2, "VA Long Beach": 3}
-bool_map      = {False: 0, True: 1}          # for fbs / exang
+bool_map      = {False: 0, True: 1}         
 restecg_map   = {"lv-hypertrophy": 0, "normal": 1, "st-t-abnormality": 2}
 slope_map     = {"downsloping": 0, "flat": 1, "upsloping": 2}
 thal_map      = {"fixed-defect": 0, "normal": 1, "reversable-defect": 2}
@@ -76,12 +76,11 @@ def predict_heart_risk_binary(data: Patient):
     """
     payload = data.model_dump()
     
-    # ------- encode with the mapping dicts -------
     encoded = {
         "age": payload["age"],
         "sex": sex_map[payload["sex"]],
         "chest_pain_type": cp_map[payload["chest_pain_type"]],
-        "country": dataset_map["Hungary"],  # Always use Hungary
+        "country": dataset_map["Hungary"],  
         "resting_blood_pressure": payload["resting_blood_pressure"],
         "cholesterol": payload["cholesterol"],
         "fasting_blood_sugar": bool_map[payload["fasting_blood_sugar"]],
@@ -94,7 +93,6 @@ def predict_heart_risk_binary(data: Patient):
         "thalassemia_type": thal_map[payload["thalassemia_type"]],
     }
     
-    # ------- DataFrame ➜ scale ➜ predict -------
     df = pd.DataFrame([encoded])
     df_scaled = binary_scaler.transform(df)
     
@@ -113,15 +111,13 @@ def predict_heart_risk_multiclass(data: Patient):
     """
     payload = data.model_dump()
     
-    # Generate a random ID for the patient (not used in prediction)
     patient_id = uuid.uuid4().int % 100000
     
-    # ------- encode with the mapping dicts -------
     encoded = {
         "id": patient_id,  
         "age": payload["age"],
         "sex": sex_map[payload["sex"]],
-        "dataset": dataset_map["Hungary"],  # Always use Hungary
+        "dataset": dataset_map["Cleveland"],  
         "cp": cp_map[payload["chest_pain_type"]],
         "trestbps": payload["resting_blood_pressure"],
         "chol": payload["cholesterol"],
@@ -135,21 +131,17 @@ def predict_heart_risk_multiclass(data: Patient):
         "thal": thal_map[payload["thalassemia_type"]]
     }
     
-    # Create DataFrame and add trestbps_bins
     df = pd.DataFrame([encoded])
     
-    # Add trestbps bin
     bins = [0, 60, 80, 130, 135, 140]
     labels = ['very_low', 'low', 'Normal', 'high', 'very_high']
     df['trestbps_bins'] = pd.cut(df['trestbps'], bins=bins, labels=labels)
     df['trestbps_bins'].fillna('Normal', inplace=True)
     df['trestbps_bins'] = df['trestbps_bins'].map(trestbps_bins_map)
     
-    # Scale numeric columns
     numeric_cols = ['id', 'age', 'trestbps', 'chol', 'thalch', 'oldpeak']
     df[numeric_cols] = multiclass_scaler.transform(df[numeric_cols])
     
-    # Make prediction
     class_id = int(multiclass_model.predict(df)[0])
     class_name = class_mapping[class_id]
     probabilities = {class_mapping[i]: float(prob) for i, prob in enumerate(multiclass_model.predict_proba(df)[0])}
@@ -160,23 +152,14 @@ def predict_heart_risk_multiclass(data: Patient):
         "probabilities": probabilities
     }
 
-#  Load binary feature names
 with open("model/binary_feature_names.json", "r") as f:
     binary_feature_names = json.load(f)
 
 
-#  /binary-feature-importance: Get bar chart data for binary model
 @app.get("/feature-importance")
 def get_binary_feature_importance():
     try:
-        # Option 1: Calculate on the fly
-        # importances = binary_model.feature_importances_
-        # response = [
-        #     {"feature": feature, "importance": float(importance)}
-        #     for feature, importance in zip(binary_feature_names, importances)
-        # ]
         
-        # Option 2: Load pre-calculated values (more efficient)
         with open("model/binary_feature_importance.json", "r") as f:
             response = json.load(f)
         
@@ -185,7 +168,6 @@ def get_binary_feature_importance():
         return {"error": str(e)}
 
 
-#  /risk-distribution: Get pie chart data
 @app.get("/risk-distribution")
 def get_risk_distribution():
     try:
@@ -194,7 +176,6 @@ def get_risk_distribution():
     except Exception as e:
         return {"error": str(e)}
 
-#  /age-risk: Get line chart data
 @app.get("/age-risk")
 def get_age_risk():
     try:

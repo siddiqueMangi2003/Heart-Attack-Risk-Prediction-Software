@@ -138,46 +138,14 @@ const multiclassModelData: ModelData[] = [
 // Binary model data
 const binaryModelData: ModelData[] = [
   {
-    id: 1,
-    name: "XGBoost",
-    description: "An optimized gradient boosting library designed for efficiency, flexibility and portability that implements machine learning algorithms under the Gradient Boosting framework.",
-    metrics: {
-      accuracy: 0.913043,
-      precision: 0.921569,
-      recall: 0.921569,
-      f1Score: 0.921569,
-    },
-    features: ["Regularized boosting to prevent overfitting", "Handles missing values", "Tree pruning", "Parallel processing"],
-    bestFor: "Structured/tabular data with complex relationships",
-    limitations: "May require careful hyperparameter tuning and can be memory-intensive on large datasets",
-    modelType: "binary",
-    classCount: 2,
-  },
-  {
-    id: 2,
-    name: "TabPFN",
-    description: "A prior-data fitted network specifically designed for tabular data that requires minimal training and can generalize well from small datasets.",
-    metrics: {
-      accuracy: 0.800725,
-      precision: 0.814103,
-      recall: 0.830065,
-      f1Score: 0.822006,
-    },
-    features: ["Zero-shot learning capability", "Fast inference", "Works well with small datasets", "Minimal hyperparameter tuning"],
-    bestFor: "Small to medium-sized tabular datasets with limited training time",
-    limitations: "May not perform as well as specialized models on very large datasets or specific domains",
-    modelType: "binary",
-    classCount: 2,
-  },
-  {
     id: 3,
     name: "Random Forest",
     description: "An ensemble learning method that operates by constructing multiple decision trees during training.",
     metrics: {
-      accuracy: 0.913043,
-      precision: 0.932886,
-      recall: 0.908497,
-      f1Score: 0.920530,
+      accuracy: 0.89,
+      precision: 0.89,
+      recall: 0.89,
+      f1Score: 0.89,
     },
     features: ["Non-parametric", "Handles non-linear relationships", "Robust to outliers", "Provides feature importance"],
     bestFor: "Complex binary classification tasks with many features",
@@ -186,14 +154,30 @@ const binaryModelData: ModelData[] = [
     classCount: 2,
   },
   {
+    id: 1,
+    name: "XGBoost",
+    description: "An optimized gradient boosting library designed for efficiency, flexibility and portability that implements machine learning algorithms under the Gradient Boosting framework.",
+    metrics: {
+      accuracy: 0.88,
+      precision: 0.87,
+      recall: 0.88,
+      f1Score: 0.87,
+    },
+    features: ["Regularized boosting to prevent overfitting", "Handles missing values", "Tree pruning", "Parallel processing"],
+    bestFor: "Structured/tabular data with complex relationships",
+    limitations: "May require careful hyperparameter tuning and can be memory-intensive on large datasets",
+    modelType: "binary",
+    classCount: 2,
+  },
+  {
     id: 4,
     name: "CatBoost",
     description: "A gradient boosting library with special handling for categorical features that uses ordered boosting to fight prediction shift.",
     metrics: {
-      accuracy: 0.858696,
-      precision: 0.885135,
-      recall: 0.856209,
-      f1Score: 0.870432,
+      accuracy: 0.86,
+      precision: 0.89,
+      recall: 0.85,
+      f1Score: 0.87,
     },
     features: ["Automatic handling of categorical features", "Reduced overfitting", "Built-in GPU support", "Robust to categorical shifts"],
     bestFor: "Datasets with many categorical features requiring minimal preprocessing",
@@ -201,8 +185,23 @@ const binaryModelData: ModelData[] = [
     modelType: "binary",
     classCount: 2,
   },
+  {
+    id: 2,
+    name: "TabPFN",
+    description: "A prior-data fitted network specifically designed for tabular data that requires minimal training and can generalize well from small datasets.",
+    metrics: {
+      accuracy: 0.86,
+      precision: 0.86,
+      recall: 0.86,
+      f1Score: 0.86,
+    },
+    features: ["Zero-shot learning capability", "Fast inference", "Works well with small datasets", "Minimal hyperparameter tuning"],
+    bestFor: "Small to medium-sized tabular datasets with limited training time",
+    limitations: "May not perform as well as specialized models on very large datasets or specific domains",
+    modelType: "binary",
+    classCount: 2,
+  },
 ];
-
 // Format for radar chart - multiclass
 const formatRadarData = (modelData: ModelData[]): RadarChartData[] => {
   return modelData.map((model) => ({

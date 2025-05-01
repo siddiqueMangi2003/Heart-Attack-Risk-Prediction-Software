@@ -1,4 +1,5 @@
 import { HealthParameterForm } from "@/components/health-parameter-form"
+import { ParameterExplanations } from "@/components/parameter-explanations"
 
 export default function PredictPage() {
   return (
@@ -15,6 +16,7 @@ export default function PredictPage() {
             </p>
           </div>
           <div className="w-full max-w-3xl">
+           <ParameterExplanations />
             <HealthParameterForm />
           </div>
         </div>

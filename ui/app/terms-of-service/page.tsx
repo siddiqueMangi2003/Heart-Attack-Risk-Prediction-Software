@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
             <div className="bg-white rounded-xl shadow-md p-8">
               <div className="prose prose-blue max-w-none">
                 <p className="text-muted-foreground">
-                  <strong>Last Updated:</strong> April 15, 2023
+                  <strong>Last Updated:</strong> May 1st, 2025
                 </p>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">1. Agreement to Terms</h2>
