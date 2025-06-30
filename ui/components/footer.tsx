@@ -3,7 +3,7 @@ import Link from "next/link"
 export function Footer() {
   return (
     <footer className="border-t bg-gradient-to-b from-white to-blue-50">
-      <div className="container py-12 px-5 md:px-0">
+      <div className="container py-12 px-5 md:px-0 m-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand and Description */}
           <div className="md:col-span-2 space-y-4">
@@ -183,9 +183,7 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               &copy; {new Date().getFullYear()} CardioGuard. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0">
-              <p className="text-xs text-muted-foreground">Designed with ❤️ for heart health awareness</p>
-            </div>
+            
           </div>
         </div>
       </div>

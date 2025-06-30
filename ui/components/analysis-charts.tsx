@@ -236,60 +236,7 @@ export function AnalysisCharts() {
         </TabsContent>
       </Tabs>
 
-      <Card className="border-none shadow-lg bg-gradient-to-r from-blue-50 to-purple-50">
-        <CardHeader>
-          <CardTitle className="text-2xl">How We Calculate Heart Attack Risk</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p>
-            Our heart attack risk prediction model uses a comprehensive algorithm that considers multiple health
-            parameters and their interactions. The calculation process involves:
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            <div className="p-4 rounded-lg bg-white/80 border border-blue-100 shadow-sm">
-              <h3 className="text-lg font-medium text-blue-800 mb-2">Data Collection</h3>
-              <p className="text-sm">
-                We collect key health parameters including age, gender, blood pressure, cholesterol levels, blood sugar,
-                smoking status, physical activity, family history, and BMI.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-white/80 border border-purple-100 shadow-sm">
-              <h3 className="text-lg font-medium text-purple-800 mb-2">Risk Weighting</h3>
-              <p className="text-sm">
-                Each parameter is assigned a weight based on its relative importance as determined by clinical research.
-                For example, smoking and high blood pressure carry higher weights than some other factors.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-white/80 border border-indigo-100 shadow-sm">
-              <h3 className="text-lg font-medium text-indigo-800 mb-2">Interaction Analysis</h3>
-              <p className="text-sm">
-                Our model accounts for how different risk factors interact with each other. For instance, the
-                combination of diabetes and high blood pressure presents a higher risk than either factor alone.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-white/80 border border-sky-100 shadow-sm">
-              <h3 className="text-lg font-medium text-sky-800 mb-2">Risk Categorization</h3>
-              <p className="text-sm">
-                The final risk score is calculated and normalized to a 0-100 scale. Scores below 30 are categorized as
-                "Low Risk," 30-60 as "Moderate Risk," and above 60 as "High Risk."
-              </p>
-            </div>
-          </div>
-
-          <div className="p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg mt-4">
-            <h3 className="text-lg font-medium mb-2">Important Note</h3>
-            <p className="text-sm">
-              This risk assessment tool is based on statistical models and is intended for educational purposes only. It
-              should not replace professional medical advice. Always consult with a healthcare provider for a
-              comprehensive evaluation of your cardiovascular health.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      
     </div>
   )
 }

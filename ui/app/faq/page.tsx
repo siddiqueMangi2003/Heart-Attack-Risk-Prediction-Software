@@ -390,27 +390,27 @@ export default function FAQPage() {
                     </span>
                   </summary>
                   <div className="px-6 pb-6 pt-0">
-                    <p className="text-muted-foreground mb-4">
-                      Yes, we take data security and privacy very seriously. CardioGuard implements multiple layers of
-                      protection for your health information:
-                    </p>
-                    <ul className="list-disc pl-5 space-y-2 text-muted-foreground mb-4">
-                      <li>
-                        All data is encrypted both in transit and at rest using industry-standard encryption protocols.
-                      </li>
-                      <li>We comply with healthcare data protection regulations, including HIPAA where applicable.</li>
-                      <li>Our systems undergo regular security audits and vulnerability assessments.</li>
-                      <li>We implement strict access controls, ensuring only authorized personnel can access data.</li>
-                      <li>You maintain control over your data and can request its deletion at any time.</li>
-                    </ul>
-                    <p className="text-muted-foreground">
-                      For more detailed information about our data security practices, please review our{" "}
-                      <Link href="/privacy-policy" className="text-blue-600 hover:underline">
-                        Privacy Policy
-                      </Link>
-                      .
-                    </p>
-                  </div>
+  <p className="text-muted-foreground mb-4">
+    Yes, we take data security and privacy very seriously. CardioGuard implements multiple layers of
+    protection for your health information:
+  </p>
+  <ul className="list-disc pl-5 space-y-2 text-muted-foreground mb-4">
+    <li>
+      All data is encrypted in transit using industry-standard encryption protocols during processing.
+    </li>
+    <li>Your health data is processed in real-time and immediately discarded - we never store it on our servers.</li>
+    <li>Our systems undergo regular security audits and vulnerability assessments.</li>
+    <li>We implement strict access controls for our processing systems.</li>
+    <li>Since we don't store your health data, there's no permanent record that could be compromised.</li>
+  </ul>
+  <p className="text-muted-foreground">
+    For more detailed information about our data handling practices, please review our{" "}
+    <Link href="/privacy-policy" className="text-blue-600 hover:underline">
+      Privacy Policy
+    </Link>
+    .
+  </p>
+</div>
                 </details>
               </div>
             </div>

@@ -53,12 +53,7 @@ export function ParameterExplanations() {
                         Select your biological sex. Heart disease risk profiles differ between males and females.
                       </dd>
                     </div>
-                    <div>
-                      <dt className="font-medium">Data Source</dt>
-                      <dd className="text-muted-foreground text-sm mt-1">
-                        Choose the dataset origin (e.g. Cleveland, Hungary). Different populations may have different baselines.
-                      </dd>
-                    </div>
+                
                     <div>
                       <dt className="font-medium">Chest Pain Type (cp)</dt>
                       <dd className="text-muted-foreground text-sm mt-1">

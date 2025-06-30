@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white rounded-xl shadow-md p-8">
               <div className="prose prose-blue max-w-none">
                 <p className="text-muted-foreground">
-                  <strong>Last Updated:</strong> May 1st, 2025
+                  <strong>Last Updated:</strong> June 30th, 2025
                 </p>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">Introduction</h2>
@@ -28,43 +28,53 @@ export default function PrivacyPolicyPage() {
                   have read, understood, and agree to be bound by the terms of this Privacy Policy. If you do not agree
                   with our policies and practices, please do not use our Service.
                 </p>
+
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 my-6">
+                  <div className="flex">
+                    <div className="ml-3">
+                      <p className="text-blue-700 font-semibold">Important: We Do Not Store Your Health Data</p>
+                      <p className="text-blue-600 text-sm mt-1">
+                        Your health information is only temporarily processed through our prediction model and is not stored on our servers. 
+                        Once your risk assessment is generated, all health data is immediately discarded and cannot be retrieved.
+                      </p>
+                    </div>
+                  </div>
+                </div>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">Information We Collect</h2>
                 <p>We collect several types of information from and about users of our Service, including:</p>
   
                 <h3 className="text-xl font-medium mt-6 mb-3">Personal Information</h3>
                 <p>
-                  When you register for an account or use our risk prediction tool, we may collect personally identifiable
-                  information, such as:
+                  We collect minimal information necessary for account creation:
                 </p>
                 <ul className="list-disc pl-5 space-y-2 mb-4">
-                  <li>Name and contact information (email address, phone number)</li>
-                  <li>Date of birth and gender</li>
-                  <li>
-                    Health information, including:
-                    <ul className="list-disc pl-5 mt-2">
-                      <li>Height and weight</li>
-                      <li>Blood pressure readings</li>
-                      <li>Cholesterol levels</li>
-                      <li>Blood glucose levels</li>
-                      <li>Smoking status</li>
-                      <li>Physical activity levels</li>
-                      <li>Family medical history</li>
-                      <li>Current medications</li>
-                    </ul>
-                  </li>
+                  <li>Email address (for account access only, not stored permanently)</li>
                 </ul>
-  
-                <h3 className="text-xl font-medium mt-6 mb-3">Usage Information</h3>
-                <p>We may also collect information about how you access and use our Service, including:</p>
+
+                <h3 className="text-xl font-medium mt-6 mb-3">Health Information (Not Stored)</h3>
+                <p>
+                  When you use our risk prediction tool, you provide health information that is <strong>temporarily processed</strong> 
+                  through our AI model but <strong>never stored</strong> on our servers. This information includes:
+                </p>
                 <ul className="list-disc pl-5 space-y-2 mb-4">
-                  <li>IP address and device information</li>
-                  <li>Browser type and operating system</li>
-                  <li>Pages visited and features used</li>
-                  <li>Time spent on the Service</li>
-                  <li>Referring websites or sources</li>
-                  <li>Search terms used to find our Service</li>
+                  <li>Age and biological sex</li>
+                  <li>Chest pain type and symptoms</li>
+                  <li>Resting blood pressure (systolic)</li>
+                  <li>Total serum cholesterol levels</li>
+                  <li>Maximum heart rate achieved during exercise</li>
+                  <li>Fasting blood sugar levels</li>
+                  <li>Resting electrocardiogram (ECG) results</li>
+                  <li>Exercise-induced angina symptoms</li>
+                  <li>ST depression measurements from exercise tests</li>
+                  <li>ST segment slope from exercise ECG</li>
+                  <li>Number of major vessels with significant narrowing (from angiography)</li>
+                  <li>Thalassemia type from thallium stress test results</li>
                 </ul>
+                <p className="text-sm text-gray-600 italic">
+                  <strong>Note:</strong> All health data is processed in real-time and immediately discarded after generating your risk assessment. 
+                  We cannot retrieve or access this information once the assessment is complete.
+                </p>
   
                 <h3 className="text-xl font-medium mt-6 mb-3">Cookies and Similar Technologies</h3>
                 <p>
@@ -75,93 +85,26 @@ export default function PrivacyPolicyPage() {
                 </p>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">How We Use Your Information</h2>
-                <p>We use the information we collect about you for various purposes, including to:</p>
+                <p>We use the information only to:</p>
                 <ul className="list-disc pl-5 space-y-2 mb-4">
-                  <li>Provide, maintain, and improve our Service</li>
-                  <li>Calculate and display your heart attack risk assessment</li>
-                  <li>Generate personalized health recommendations</li>
-                  <li>Process and complete transactions</li>
-                  <li>Send you technical notices, updates, security alerts, and support messages</li>
-                  <li>Respond to your comments, questions, and requests</li>
-                  <li>Develop new products and services</li>
-                  <li>Monitor and analyze trends, usage, and activities in connection with our Service</li>
-                  <li>Detect, investigate, and prevent fraudulent transactions and other illegal activities</li>
-                  <li>Protect the rights and property of CardioGuard and others</li>
+                  <li>Provide and maintain our Service</li>
+                  <li>Calculate and display your heart attack risk assessment (without storing health data)</li>
+                  <li>Generate personalized health recommendations (processed in real-time)</li>
+                  <li>Ensure Service security and prevent misuse</li>
                 </ul>
   
                 <h3 className="text-xl font-medium mt-6 mb-3">Research and Analytics</h3>
                 <p>
-                  With your consent, we may use de-identified or aggregated data for research purposes to improve our risk
-                  prediction algorithms and contribute to scientific understanding of cardiovascular health. Any data used
-                  for research will be stripped of personally identifiable information.
-                </p>
-  
-                <h2 className="text-2xl font-semibold mt-8 mb-4">How We Share Your Information</h2>
-                <p>We may share your personal information in the following situations:</p>
-  
-                <h3 className="text-xl font-medium mt-6 mb-3">With Your Consent</h3>
-                <p>
-                  We may disclose your personal information for any purpose with your consent. For example, you may choose
-                  to share your risk assessment results with your healthcare provider.
-                </p>
-  
-                <h3 className="text-xl font-medium mt-6 mb-3">Service Providers</h3>
-                <p>
-                  We may share your information with third-party vendors, service providers, contractors, or agents who
-                  perform services for us or on our behalf and require access to such information to do that work. These
-                  third parties are contractually obligated to use personal information only for the purposes for which we
-                  disclose it to them and to provide adequate protection for personal information.
-                </p>
-  
-                <h3 className="text-xl font-medium mt-6 mb-3">Legal Requirements</h3>
-                <p>
-                  We may disclose your information where required to do so by law or in response to valid requests by
-                  public authorities (e.g., a court or a government agency).
-                </p>
-  
-                <h3 className="text-xl font-medium mt-6 mb-3">Business Transfers</h3>
-                <p>
-                  If we are involved in a merger, acquisition, or sale of all or a portion of our assets, your information
-                  may be transferred as part of that transaction. We will notify you via email and/or a prominent notice
-                  on our Service of any change in ownership or uses of your personal information.
-                </p>
-  
-                <h2 className="text-2xl font-semibold mt-8 mb-4">Data Security</h2>
-                <p>
-                  We have implemented appropriate technical and organizational security measures designed to protect the
-                  security of any personal information we process. However, please also remember that we cannot guarantee
-                  that the internet itself is 100% secure. Although we will do our best to protect your personal
-                  information, transmission of personal information to and from our Service is at your own risk. You
-                  should only access the Service within a secure environment.
+                  We do not use individual health data for research purposes since we do not store this information. 
+                  Any analytics we perform are based solely on aggregated, non-identifiable usage patterns and do not 
+                  include any health information.
                 </p>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">Data Retention</h2>
                 <p>
-                  We will retain your personal information only for as long as is necessary for the purposes set out in
-                  this Privacy Policy. We will retain and use your information to the extent necessary to comply with our
-                  legal obligations, resolve disputes, and enforce our policies.
-                </p>
-  
-                <h2 className="text-2xl font-semibold mt-8 mb-4">Your Data Protection Rights</h2>
-                <p>Depending on your location, you may have the following data protection rights:</p>
-                <ul className="list-disc pl-5 space-y-2 mb-4">
-                  <li>The right to access, update, or delete the information we have on you</li>
-                  <li>The right of rectification (to correct or update your personal information)</li>
-                  <li>The right to object (to the processing of your personal information)</li>
-                  <li>
-                    The right of restriction (to request that we restrict the processing of your personal information)
-                  </li>
-                  <li>
-                    The right to data portability (to receive a copy of your personal information in a structured,
-                    machine-readable format)
-                  </li>
-                  <li>
-                    The right to withdraw consent (where we rely on your consent to process your personal information)
-                  </li>
-                </ul>
-                <p>
-                  To exercise any of these rights, please contact us using the contact information provided below. We will
-                  respond to your request within a reasonable timeframe.
+                  We do not store personal information permanently. <strong>Health data is never retained</strong> - it is 
+                  processed in real-time and immediately discarded after generating your risk assessment. Email addresses 
+                  are used only for temporary session management and are not stored permanently.
                 </p>
   
                 <h2 className="text-2xl font-semibold mt-8 mb-4">Children's Privacy</h2>
@@ -198,4 +141,3 @@ export default function PrivacyPolicyPage() {
       </main>
     )
   }
-  
