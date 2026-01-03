@@ -1,8 +1,9 @@
-fastapi
-joblib
-numpy
-pandas
-pydantic
-uvicorn[standard]
-xgboost
-
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+pydantic==2.12.5
+numpy==2.4.0
+pandas==2.3.3
+joblib==1.5.3
+xgboost==3.1.2
+scikit-learn==1.2.2
+email-validator==2.0.0
