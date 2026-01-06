@@ -3,4 +3,5 @@ joblib
 numpy
 pandas
 pydantic
-uvicorn[standard]==0.40.0
+
+
