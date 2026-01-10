@@ -20,11 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-binary_model = joblib.load("model/xgboost_model.pkl")
-binary_scaler = joblib.load("model/scaler.pkl")
+binary_model = joblib.load("model/latest_best_binary_model.pkl")
+binary_scaler = joblib.load("model/latest_binary_scaler.pkl")
 
-multiclass_model = joblib.load("model/best_model.pkl")
-multiclass_scaler = joblib.load("model/multiclass_scaler.pkl")
+multiclass_model = joblib.load("model/multiclass_best_model_latest.pkl")
+multiclass_scaler = joblib.load("model/multiclass_scaler_latest.pkl")
 
 sex_map       = {"Female": 0, "Male": 1}
 cp_map        = {"asymptomatic": 0, "atypical angina": 1, 
