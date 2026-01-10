@@ -6,3 +6,4 @@ pandas
 pydantic
 xgboost
 scikit-learn
+imbalanced-learn
